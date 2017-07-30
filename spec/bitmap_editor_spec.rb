@@ -2,6 +2,8 @@ require 'bitmap_editor'
 
 describe BitmapEditor do
 
+  subject { described_class.new }
+
   before(:each) do
     @file_path = "spec/test_file.txt"
   end
@@ -22,8 +24,16 @@ describe BitmapEditor do
 
     it 'should display an error if the command is not recognised' do
       create_test_file("X")
-      expect(STDOUT).to receive(:puts).with('unrecognised command :(')
+      expect(STDOUT).to receive(:puts).with("unrecognised command :(")
       subject.run(@file_path)
+    end
+
+    context 'Command: "I"' do
+      it 'should create a new M x N image with all pixels coloured white (O)' do
+        create_test_file('I 5 6')
+        expect(STDOUT).to receive(:puts).with("Creating new image")
+        subject.run(@file_path)
+      end
     end
 
   end
