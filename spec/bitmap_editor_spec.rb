@@ -29,11 +29,13 @@ describe BitmapEditor do
     end
 
     context 'Command: "I"' do
+
       it 'should create a new M x N image with all pixels coloured white (O)' do
         create_test_file('I 5 6')
         expect(STDOUT).to receive(:puts).with("Creating new image")
         subject.run(@file_path)
       end
+
     end
 
   end
