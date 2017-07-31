@@ -1,10 +1,10 @@
 class Bitmap
 
-  attr_reader :data
+  attr_reader :pixels
 
   def initialize(cols, rows, error_strategy = method(:raise))
     @error_strategy = error_strategy
-    @data = nil
+    @pixels = nil
     @rows = rows
     @cols = cols
     create
@@ -12,9 +12,13 @@ class Bitmap
 
   def create
     raise err = "Invalid Request: Row and Column size must be between 1 and 250" if !valid?
-    @data = Array.new(@rows) { Array.new(@cols, 'O') }
+    pixels
   rescue
     error_strategy.call(err)
+  end
+
+  def pixels
+    @pixels ||= (1..rows).map{ (1..cols).map{'O'} }
   end
 
   private

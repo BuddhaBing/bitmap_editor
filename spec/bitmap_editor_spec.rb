@@ -3,13 +3,12 @@ require 'bitmap_editor'
 describe BitmapEditor do
 
   subject { described_class.new }
-  let(:image) { instance_double(Bitmap) }
 
   before(:each) do
     @file_path = "spec/test_file.txt"
   end
 
-  context '#run' do
+  context '#run - ' do
 
     it 'should display an error if the given file does not exist' do
       file = nil
@@ -29,14 +28,13 @@ describe BitmapEditor do
       subject.run(@file_path)
     end
 
-    context 'Command: "I"' do
+    context 'Command: "I" (Create) - ' do
 
       before do
         create_test_file('I 5 6')
       end
 
       it 'should create a new bitmap' do
-        create_test_file('I 5 6')
         subject.run(@file_path)
         expect(subject.image.class).to eq Bitmap
       end
@@ -48,7 +46,34 @@ describe BitmapEditor do
 
     end
 
-  end
+    context 'Command: "C" (Clear) - ' do
+
+      context 'image does not exist - '
+
+        it 'should raise an error if there is no image to clear' do
+          create_test_file('C')
+          expect(STDOUT).to receive(:puts).with("There is no image to clear")
+          subject.run(@file_path)
+        end
+
+      end
+
+      context 'image exists - ' do
+
+        before do
+          create_test_file('I 5 6')
+          subject.run(@file_path)
+        end
+
+        it 'should display confirmation that the image has been cleared' do
+          create_test_file('C')
+          expect(STDOUT).to receive(:puts).with("Image cleared")
+          subject.run(@file_path)
+        end
+
+      end
+
+    end
 
 end
 

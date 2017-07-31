@@ -20,16 +20,29 @@ class BitmapEditor
       when 'I'
         create_bitmap(params)
         puts "Creating new image"
+      when 'C'
+        if image_exists?
+          @image.clear
+          puts "Image cleared"
+        else
+          error_handler.call("There is no image to clear")
+        end
       when 'S'
-        puts "There is no image"
+        error_handler.call("There is no image")
       else
-        puts 'unrecognised command :('
+        error_handler.call('unrecognised command :(')
       end
     end
 
   end
 
   private
+
+  attr_reader :error_handler
+
+  def image_exists?
+    !!@image
+  end
 
   def convert_params(line)
     params = line.split(/\s+/)
@@ -39,7 +52,7 @@ class BitmapEditor
 
   def create_bitmap(params)
     rows, cols = params
-    @image = Bitmap.new(rows + 1, cols + 1, @error_handler)
+    @image = Bitmap.new(rows + 1, cols + 1, error_handler)
   end
 
 end
