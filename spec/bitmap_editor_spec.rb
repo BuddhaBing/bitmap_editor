@@ -3,6 +3,7 @@ require 'bitmap_editor'
 describe BitmapEditor do
 
   subject { described_class.new }
+  let(:image) { instance_double(Bitmap) }
 
   before(:each) do
     @file_path = "spec/test_file.txt"
@@ -30,8 +31,17 @@ describe BitmapEditor do
 
     context 'Command: "I"' do
 
-      it 'should create a new M x N image with all pixels coloured white (O)' do
+      before do
         create_test_file('I 5 6')
+      end
+
+      it 'should create a new bitmap' do
+        create_test_file('I 5 6')
+        subject.run(@file_path)
+        expect(subject.image.class).to eq Bitmap
+      end
+
+      it 'should display confirmation of the new image creation to the user' do
         expect(STDOUT).to receive(:puts).with("Creating new image")
         subject.run(@file_path)
       end

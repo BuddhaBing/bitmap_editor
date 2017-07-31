@@ -2,6 +2,12 @@ require_relative 'bitmap'
 
 class BitmapEditor
 
+  attr_reader :image
+
+  def initialize
+    @image = nil
+  end
+
   def run(file)
     return puts "Please provide an existing file" if file.nil? || !File.exists?(file)
 
