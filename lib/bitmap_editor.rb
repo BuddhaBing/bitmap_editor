@@ -20,9 +20,9 @@ class BitmapEditor
         create_bitmap(params)
         puts "Creating new image"
       when 'S'
-          puts "There is no image"
+        puts "There is no image"
       else
-          puts 'unrecognised command :('
+        puts 'unrecognised command :('
       end
     end
 
@@ -31,7 +31,8 @@ class BitmapEditor
   private
 
   def convert_params(line)
-    params = line.gsub(/(^\w)|\s/, "").split("")
+    params = line.split(/\s+/)
+    params.shift
     params.map { |el| el.match(/\A[-+]?\d+\z/) ? el.to_i - 1 : el }
   end
 
