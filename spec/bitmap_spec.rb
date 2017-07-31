@@ -8,7 +8,7 @@ describe Bitmap do
 
     context 'size is invalid' do
 
-      it 'should puts an error if the given row size is less than 1' do
+      it 'should raise an error if the given row size is less than 1' do
         expected_error = "Invalid Request: Row and Column size must be between 1 and 250"
         expect{described_class.new(255,6)}.to raise_error expected_error
       end

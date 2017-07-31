@@ -6,6 +6,7 @@ class BitmapEditor
 
   def initialize
     @image = nil
+    @error_handler = Proc.new { |msg| puts msg }
   end
 
   def run(file)
@@ -38,7 +39,7 @@ class BitmapEditor
 
   def create_bitmap(params)
     rows, cols = params
-    @image = Bitmap.new(rows + 1, cols + 1)
+    @image = Bitmap.new(rows + 1, cols + 1, @error_handler)
   end
 
 end
