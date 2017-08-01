@@ -1,18 +1,35 @@
 require 'matrix'
 
-class Bitmap < Matrix
+class Bitmap < Array
+
+  attr_reader :pixels
 
   MIN_SIZE = 1
   MAX_SIZE = 250
 
-  def self.new(rows, cols, colour = "O")
-    build(rows, cols)
+  def self.new(cols, rows, colour = "O")
+    validate(cols, rows)
+    # super
+    new(rows) { new(cols) }
   end
 
-  def self.build(rows, cols, &block)
-    validate(rows, cols)
-    super
+  def initialize(cols, rows, colour = "O")
+    # @pixels = superclass.new(rows) { superclass.new(cols, colour) }
+    @height = rows
+    @width = cols
   end
+
+  def column_count
+    @width
+  end
+
+  def row_count
+    @height
+  end
+
+  # def size
+  #
+  # end
 
   private
 
