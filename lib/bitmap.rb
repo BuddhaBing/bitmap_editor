@@ -4,8 +4,9 @@ class Bitmap
 
   MIN_SIZE = 1
   MAX_SIZE = 250
+  DEFAULT_COLOUR = 'O'
 
-  def self.new(cols, rows, colour = "O")
+  def self.new(cols, rows, colour = DEFAULT_COLOUR)
     validate(cols, rows)
     super
   end
