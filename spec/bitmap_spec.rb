@@ -148,6 +148,39 @@ describe Bitmap do
 
     end
 
+    context '#fill_row' do
+
+      context 'is out of range' do
+
+        it 'should raise an error if the row number given is out of the bounds of the image' do
+          expect{subject.fill_row(1,1,251,'A')}.to raise_error "Out of bounds"
+        end
+
+        it 'should raise an error if the start column number given is out of the bounds of the image' do
+          expect{subject.fill_row(251,1,1,'A')}.to raise_error "Out of bounds"
+        end
+
+        it 'should raise an error if the end column number given is out of the bounds of the image' do
+          expect{subject.fill_row(1,251,1,'A')}.to raise_error "Out of bounds"
+        end
+
+      end
+
+      context 'is in range' do
+
+        it 'should change the colour of a vertical range' do
+          start_col, end_col, row, colour = 2, 4, 2, 'A'
+          subject.fill_row(start_col, end_col, row, colour)
+          coloured_pixels = []
+          start_col.upto(end_col) { |col| coloured_pixels << subject[col,row] }
+          p coloured_pixels
+          expect(coloured_pixels.all? { |px| px == colour }).to be true
+        end
+
+      end
+
+    end
+
   end
 
   context '#clear' do
