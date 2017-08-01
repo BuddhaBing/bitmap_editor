@@ -27,6 +27,11 @@ class Bitmap
     @pixels[y][x]
   end
 
+  def fill_column(x, y1, y2, c)
+    raise "Out of bounds" unless in_range?(x, y1) && in_range?(x, y2)
+    y1.upto(y2) { |y| self[x,y] = c }
+  end
+
   private
 
   def self.validate(rows, cols)

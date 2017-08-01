@@ -137,9 +137,10 @@ describe Bitmap do
       context 'is in range' do
 
         it 'should change the colour of a vertical range' do
-          column, start_row, end_row, colour = 1, 0, 3, 'A'
+          column, start_row, end_row, colour = 1, 1, 3, 'A'
           subject.fill_column(column, start_row, end_row, colour)
-          coloured_pixels = start_row.upto(end_row) { |row| self[column,row] }
+          coloured_pixels = []
+          start_row.upto(end_row) { |row| coloured_pixels << subject[column,row] }
           expect(coloured_pixels.all? { |px| px == colour }).to be true
         end
 
