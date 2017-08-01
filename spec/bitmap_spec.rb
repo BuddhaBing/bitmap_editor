@@ -192,7 +192,14 @@ describe Bitmap do
 
   context '#clear' do
 
-
+    it 'should clear the image and reset all the pixels back to white (O)' do
+      image = subject
+      start_col, end_col, row, colour = 2, 4, 2, 'A'
+      subject.fill_row(start_col, end_col, row, colour)
+      subject.clear
+      expect(subject.pixels).to eq image.pixels
+      expect(subject.pixels.flatten.all? { |px| px == 'O' }).to be true
+    end
 
   end
 

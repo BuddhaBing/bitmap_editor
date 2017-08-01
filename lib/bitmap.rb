@@ -41,6 +41,10 @@ class Bitmap
     "#{@width} x #{@height}"
   end
 
+  def clear
+    @pixels = Array.new(@height) { Array.new(@width, DEFAULT_COLOUR ) }
+  end
+
   private
 
   def self.validate(rows, cols)
