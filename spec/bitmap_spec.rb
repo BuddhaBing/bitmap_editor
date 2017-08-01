@@ -60,7 +60,7 @@ describe Bitmap do
 
     context '#width' do
 
-      it 'returns the pixel width of the image' do
+      it 'should return the pixel width of the image' do
         expect(subject.width).to eq 5
       end
 
@@ -68,8 +68,26 @@ describe Bitmap do
 
     context '#height' do
 
-      it 'returns the pixel height of the image' do
+      it 'should return the pixel height of the image' do
         expect(subject.height).to eq 6
+      end
+
+    end
+
+    context '#[]' do
+
+      it 'should return the colour of a specified pixel' do
+        subject[3,3]
+        expect(subject[3,3]).to eq 'O'
+      end
+
+    end
+
+    context '#[]=' do
+
+      it 'should change the colour of a specified pixel' do
+        subject[3,3] = 'A'
+        expect(subject[3,3]).to eq 'A'
       end
 
     end
