@@ -17,10 +17,12 @@ class Bitmap
   end
 
   def []=(x,y,c)
+    raise "Out of bounds" unless in_range?(x, y)
     @pixels[y][x] = c
   end
 
   def [](x,y)
+    raise "Out of bounds" unless in_range?(x, y)
     @pixels[y][x]
   end
 
@@ -33,6 +35,10 @@ class Bitmap
 
   def self.valid?(pixels)
     pixels.between?(MIN_SIZE, MAX_SIZE)
+  end
+
+  def in_range?(x, y)
+    !(x < MIN_SIZE || y < MIN_SIZE || x > width || y > height)
   end
 
 end
