@@ -1,6 +1,4 @@
-require 'matrix'
-
-class Bitmap < Array
+class Bitmap
 
   attr_reader :pixels, :width, :height
 
@@ -16,6 +14,14 @@ class Bitmap < Array
     @height = rows
     @width = cols
     @pixels = Array.new(rows) { Array.new(cols, colour) }
+  end
+
+  def []=(x,y,c)
+    @pixels[y][x] = c
+  end
+
+  def [](x,y)
+    @pixels[y][x]
   end
 
   private
