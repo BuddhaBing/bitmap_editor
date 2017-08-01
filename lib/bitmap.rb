@@ -5,11 +5,11 @@ class Bitmap < Matrix
   MIN_SIZE = 1
   MAX_SIZE = 250
 
-  def self.new(rows, cols)
+  def self.new(rows, cols, colour = "O")
     build(rows, cols)
   end
 
-  def self.build(rows, cols)
+  def self.build(rows, cols, &block)
     validate(rows, cols)
     super
   end
