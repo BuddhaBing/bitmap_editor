@@ -1,20 +1,19 @@
-class Bitmap
+require 'matrix'
+
+class Bitmap < Matrix
 
   attr_reader :pixels
 
-  def initialize(cols, rows, error_strategy = method(:raise))
-    @error_strategy = error_strategy
-    @pixels = nil
-    @rows = rows
-    @cols = cols
-    create
+  def []=(x, y, c)
+    @rows[y][x] = c
   end
 
-  def create
-    raise err = "Invalid Request: Row and Column size must be between 1 and 250" if !valid?
-    pixels
-  rescue
-    error_strategy.call(err)
+  def fill_column(x, y1, y2, c)
+    y1.upto(y2) { |y| self[x,y] = c }
+  end
+
+  def fill_row(x1, x2, y, c)
+    x1.upto(x2) { |x| self[x,y] = c }
   end
 
   def pixels
@@ -28,7 +27,5 @@ class Bitmap
   def valid?
     rows.between?(1, 250) && cols.between?(1, 250)
   end
-
-  alias clear create
 
 end

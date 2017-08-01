@@ -27,6 +27,12 @@ class BitmapEditor
         else
           error_handler.call("There is no image to clear")
         end
+      when 'L'
+        colour_pixel(params)
+      when 'V'
+        colour_vertical(params)
+      when 'H'
+        colour_horizontal(params)
       when 'S'
         error_handler.call("There is no image")
       else
@@ -44,6 +50,24 @@ class BitmapEditor
     !!@image
   end
 
+  def colour_pixel(params)
+    x, y, c = params
+    @image[x,y] = c
+    puts @image.map(&:inspect)
+  end
+
+  def colour_vertical(params)
+    x, y1, y2, c = params
+    @image.fill_column(x, y1, y2, c)
+    puts @image.map(&:inspect)
+  end
+
+  def colour_horizontal(params)
+    x1, x2, y, c = params
+    @image.fill_row(x1, x2, y, c)
+    puts @image.map(&:inspect)
+  end
+
   def convert_params(line)
     params = line.split(/\s+/)
     params.shift
@@ -52,7 +76,9 @@ class BitmapEditor
 
   def create_bitmap(params)
     rows, cols = params
-    @image = Bitmap.new(rows + 1, cols + 1, error_handler)
+    @image = Bitmap.build(cols + 1, rows + 1) {|row, col| 'O' }
+    # @image = Bitmap.new(rows) { Bitmap.new(cols, '0') }
+    puts @image.map(&:inspect)
   end
 
 end
