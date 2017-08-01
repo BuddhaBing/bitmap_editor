@@ -11,10 +11,10 @@ class Bitmap
     super
   end
 
-  def initialize(cols, rows, colour = "O")
+  def initialize(cols, rows, colour = DEFAULT_COLOUR, array_klass = Array)
     @height = rows
     @width = cols
-    @pixels = Array.new(rows) { Array.new(cols, colour) }
+    @pixels = array_klass.new(rows) { array_klass.new(cols, colour) }
   end
 
   def []=(x,y,c)
