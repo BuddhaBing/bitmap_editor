@@ -32,6 +32,11 @@ class Bitmap
     y1.upto(y2) { |y| self[x,y] = c }
   end
 
+  def fill_row(x1, x2, y, c)
+    raise "Out of bounds" unless in_range?(y, x1) && in_range?(y, x2)
+    x1.upto(x2) { |x| self[x,y] = c }
+  end
+
   private
 
   def self.validate(rows, cols)

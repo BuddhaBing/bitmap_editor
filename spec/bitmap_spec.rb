@@ -173,7 +173,6 @@ describe Bitmap do
           subject.fill_row(start_col, end_col, row, colour)
           coloured_pixels = []
           start_col.upto(end_col) { |col| coloured_pixels << subject[col,row] }
-          p coloured_pixels
           expect(coloured_pixels.all? { |px| px == colour }).to be true
         end
 
