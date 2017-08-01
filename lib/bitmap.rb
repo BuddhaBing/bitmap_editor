@@ -45,6 +45,10 @@ class Bitmap
     @pixels = Array.new(@height) { Array.new(@width, DEFAULT_COLOUR ) }
   end
 
+  def show
+    @pixels.map { |row| row.join("") }.join("\n")
+  end
+
   private
 
   def self.validate(rows, cols)

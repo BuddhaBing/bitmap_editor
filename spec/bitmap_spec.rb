@@ -203,4 +203,13 @@ describe Bitmap do
 
   end
 
+  context '#show' do
+
+    it 'should return the image as a string' do
+      expected_string = "OOOOO\nOOOOO\nOOOOO\nOOOOO\nOOOOO\nOOOOO"
+      expect(subject.show).to eq expected_string
+    end
+
+  end
+
 end
