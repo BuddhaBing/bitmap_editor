@@ -58,6 +58,22 @@ describe Bitmap do
 
     end
 
+    context '#width' do
+
+      it 'returns the pixel width of the image' do
+        expect(subject.width).to eq 5
+      end
+
+    end
+
+    context '#height' do
+
+      it 'returns the pixel height of the image' do
+        expect(subject.height).to eq 6
+      end
+
+    end
+
   end
 
   context '#clear' do

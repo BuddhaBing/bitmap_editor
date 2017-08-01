@@ -2,7 +2,7 @@ require 'matrix'
 
 class Bitmap < Array
 
-  attr_reader :pixels
+  attr_reader :pixels, :width, :height
 
   MIN_SIZE = 1
   MAX_SIZE = 250
