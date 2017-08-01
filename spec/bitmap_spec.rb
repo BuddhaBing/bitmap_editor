@@ -46,14 +46,13 @@ describe Bitmap do
 
       it 'should create an M x N Bitmap/Matrix' do
         image = described_class.new(5,6)
-        p image
-        expect(image.column_count).to eq 5
-        expect(image.row_count).to eq 6
+        rows = image.pixels.size
+        columns = image.pixels[0].size
+        expect(rows == 6 && columns == 5).to be true
       end
 
       it 'should colour each pixel white \'O\'' do
-        pixels = subject.to_a.flatten
-        # p pixels
+        pixels = subject.pixels.flatten
         expect(pixels.all? { |px| px == "O" }).to be true
       end
 

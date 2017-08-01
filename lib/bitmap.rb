@@ -9,27 +9,14 @@ class Bitmap < Array
 
   def self.new(cols, rows, colour = "O")
     validate(cols, rows)
-    # super
-    new(rows) { new(cols) }
+    super
   end
 
   def initialize(cols, rows, colour = "O")
-    # @pixels = superclass.new(rows) { superclass.new(cols, colour) }
     @height = rows
     @width = cols
+    @pixels = Array.new(rows) { Array.new(cols, colour) }
   end
-
-  def column_count
-    @width
-  end
-
-  def row_count
-    @height
-  end
-
-  # def size
-  #
-  # end
 
   private
 

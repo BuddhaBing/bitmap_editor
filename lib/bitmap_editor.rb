@@ -2,7 +2,7 @@ require_relative 'bitmap'
 
 class BitmapEditor
 
-  attr_reader :image
+  attr_accessor :image
 
   def initialize
     @image = nil
@@ -10,7 +10,7 @@ class BitmapEditor
   end
 
   def run(file)
-    return puts "Please provide an existing file" if file.nil? || !File.exists?(file)
+    fail puts "Please provide an existing file" if file.nil? || !File.exists?(file)
 
     File.open(file).each do |line|
       line = line.chomp
@@ -27,14 +27,15 @@ class BitmapEditor
         else
           error_handler.call("There is no image to clear")
         end
+      when 'S'
+        show
+        error_handler.call("There is no image")
       when 'L'
         colour_pixel(params)
       when 'V'
-        colour_vertical(params)
+        colour_column(params)
       when 'H'
-        colour_horizontal(params)
-      when 'S'
-        error_handler.call("There is no image")
+        colour_row(params)
       else
         error_handler.call('unrecognised command :(')
       end
@@ -46,26 +47,27 @@ class BitmapEditor
 
   attr_reader :error_handler
 
-  def image_exists?
-    !!@image
-  end
-
   def colour_pixel(params)
     x, y, c = params
     @image[x,y] = c
-    puts @image.map(&:inspect)
   end
 
-  def colour_vertical(params)
+  def colour_column(params)
     x, y1, y2, c = params
     @image.fill_column(x, y1, y2, c)
-    puts @image.map(&:inspect)
   end
 
-  def colour_horizontal(params)
+  def colour_row(params)
     x1, x2, y, c = params
     @image.fill_row(x1, x2, y, c)
-    puts @image.map(&:inspect)
+  end
+
+  def show
+    puts @image.show
+  end
+
+  def image_exists?
+    !!@image
   end
 
   def convert_params(line)
@@ -76,9 +78,7 @@ class BitmapEditor
 
   def create_bitmap(params)
     rows, cols = params
-    @image = Bitmap.build(cols + 1, rows + 1) {|row, col| 'O' }
-    # @image = Bitmap.new(rows) { Bitmap.new(cols, '0') }
-    puts @image.map(&:inspect)
+    @image = Bitmap.new(cols + 1, rows + 1)
   end
 
 end
