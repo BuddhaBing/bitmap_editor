@@ -182,6 +182,14 @@ describe Bitmap do
 
   end
 
+  context '#size' do
+
+    it 'should return the size of the image as a "M x N" string' do
+      expect(subject.size).to eq "5 x 6"
+    end
+
+  end
+
   context '#clear' do
 
 

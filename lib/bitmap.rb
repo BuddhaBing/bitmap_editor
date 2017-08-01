@@ -37,6 +37,10 @@ class Bitmap
     x1.upto(x2) { |x| self[x,y] = c }
   end
 
+  def size
+    "#{@width} x #{@height}"
+  end
+
   private
 
   def self.validate(rows, cols)
