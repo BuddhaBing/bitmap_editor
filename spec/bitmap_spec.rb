@@ -76,18 +76,42 @@ describe Bitmap do
 
     context '#[]' do
 
-      it 'should return the colour of a specified pixel' do
-        subject[3,3]
-        expect(subject[3,3]).to eq 'O'
+      context 'is out of range' do
+
+        it 'should raise an error when trying to access a pixel out of the bounds of the image' do
+          expect{subject[251,251]}.to raise_error "Out of bounds"
+        end
+
+      end
+
+      context 'is in range' do
+
+        it 'should return the colour of a specified pixel' do
+          subject[3,3]
+          expect(subject[3,3]).to eq 'O'
+        end
+
       end
 
     end
 
     context '#[]=' do
 
-      it 'should change the colour of a specified pixel' do
-        subject[3,3] = 'A'
-        expect(subject[3,3]).to eq 'A'
+      context 'is out of range' do
+
+        it 'should raise an error when trying to colour a pixel out of the bounds of the image' do
+          expect{subject[251,251] = 'A'}.to raise_error "Out of bounds"
+        end
+
+      end
+
+      context 'is in range' do
+
+        it 'should change the colour of a specified pixel' do
+          subject[3,3] = 'A'
+          expect(subject[3,3]).to eq 'A'
+        end
+
       end
 
     end
