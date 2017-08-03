@@ -81,6 +81,39 @@ describe Parser do
 
     end
 
+    context 'edge cases' do
+
+      it 'should handle extra white spaces before the command' do
+        line = "  H 3 5 2 Z"
+        command, params = Parser.parse(line)
+        expect(Parser.parse(line).include?('colour_row')).to be true
+        expect(Parser.parse(line).include?(Parser::COMMANDS["H"])).to be true
+      end
+
+      it 'should handle extra white spaces amongst the params' do
+        line = "H  3   5 2    Z "
+        command, params = Parser.parse(line)
+        expect(params.include?(2)).to be true
+        expect(params.include?(4)).to be true
+        expect(params.include?(1)).to be true
+        expect(params.include?('Z')).to be true
+      end
+
+      it 'should handle lower case commands' do
+        line = "h 3 5 2 Z"
+        command, params = Parser.parse(line)
+        expect(command.include?('colour_row')).to be true
+        expect(command.include?(Parser::COMMANDS["H"])).to be true
+      end
+
+      it 'should handle lower case colour params' do
+        line = "H 3 5 2 z"
+        command, params = Parser.parse(line)
+        expect(params.include?('Z')).to be true
+      end
+
+    end
+
   end
 
 end
