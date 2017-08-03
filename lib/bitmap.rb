@@ -11,10 +11,11 @@ class Bitmap
     super
   end
 
-  def initialize(cols, rows, colour = DEFAULT_COLOUR, array_klass = Array)
+  def initialize(cols, rows, colour = DEFAULT_COLOUR, array_class = Array)
     @height = rows
     @width = cols
-    @pixels = array_klass.new(rows) { array_klass.new(cols, colour) }
+    @array_class = array_class
+    create
   end
 
   def []=(x,y,c)
@@ -42,7 +43,7 @@ class Bitmap
   end
 
   def clear
-    @pixels = Array.new(@height) { Array.new(@width, DEFAULT_COLOUR ) }
+    @pixels = array_class.new(@height) { array_class.new(@width, DEFAULT_COLOUR ) }
   end
 
   def show
@@ -50,6 +51,8 @@ class Bitmap
   end
 
   private
+
+  attr_reader :array_class
 
   def self.validate(rows, cols)
     raise "#{self} pixel width must be between #{MIN_SIZE} and #{MAX_SIZE}" if !valid?(rows)
@@ -61,7 +64,10 @@ class Bitmap
   end
 
   def in_range?(x, y)
+    x, y = x + 1, y + 1
     !(x < MIN_SIZE || y < MIN_SIZE || x > width || y > height)
   end
+
+  alias create clear
 
 end
