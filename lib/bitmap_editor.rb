@@ -8,6 +8,9 @@ class BitmapEditor
 
   include FileReader
 
+  BAD_COMMAND = 'Bad command :('
+  UNKNOWN_COMMAND = 'Unknown command :('
+
   def run(file)
     read(file)
   end
@@ -17,13 +20,24 @@ class BitmapEditor
   attr_reader :image
 
   def execute(command, params)
+    CLI.interpreter(command)
     begin
-      CLI.interpreter(command)
+      fail ArgumentError, UNKNOWN_COMMAND if !command
       params.empty? ? send(command) : send(command, params)
-      fail unless image_exists?
       CLI.output("Success!\n\n")
-    rescue
-      ErrorHandler.error("Bad command :(\n\n")
+    rescue ArgumentError => ex
+      ErrorHandler.error("#{ex.message}")
+    rescue NoMethodError
+      ErrorHandler.error(BAD_COMMAND)
+    end
+    check_image_exists
+  end
+
+  def check_image_exists
+    begin
+      fail ArgumentError, 'There is no image...' unless image_exists?
+    rescue ArgumentError => ex
+      ErrorHandler.error("#{ex.message}\n\n")
     end
   end
 
@@ -49,14 +63,10 @@ class BitmapEditor
 
   def show
     CLI.output(image.show + "\n\n")
-  rescue
-    ErrorHandler.error('There is no image...')
   end
 
   def clear
     image.clear
-  rescue
-    ErrorHandler.error('There is no image...')
   end
 
   def image_exists?

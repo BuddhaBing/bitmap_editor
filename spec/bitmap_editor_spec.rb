@@ -19,14 +19,15 @@ describe BitmapEditor do
     it 'should display "There is no image" if no image has been created' do
       create_test_file("S")
       expect(STDOUT).to receive(:puts).with("Displaying image...")
-      expect(STDOUT).to receive(:puts).with("There is no image...")
-      expect(STDOUT).to receive(:puts).with("Bad command :(\n\n")
+      expect(STDOUT).to receive(:puts).with("Bad command :(")
+      expect(STDOUT).to receive(:puts).with("There is no image...\n\n")
       subject.run(@file_path)
     end
 
     it 'should display an error if the command is not recognised' do
       create_test_file("X")
-      expect(STDOUT).to receive(:puts).with("Bad command :(\n\n")
+      expect(STDOUT).to receive(:puts).with("Unknown command :(")
+      expect(STDOUT).to receive(:puts).with("There is no image...\n\n")
       subject.run(@file_path)
     end
 
@@ -51,8 +52,8 @@ describe BitmapEditor do
         it 'should raise an error if there is no image to clear' do
           create_test_file('C')
           expect(STDOUT).to receive(:puts).with("Clearing image...")
-          expect(STDOUT).to receive(:puts).with("There is no image...")
-          expect(STDOUT).to receive(:puts).with("Bad command :(\n\n")
+          expect(STDOUT).to receive(:puts).with("Bad command :(")
+          expect(STDOUT).to receive(:puts).with("There is no image...\n\n")
           subject.run(@file_path)
         end
 

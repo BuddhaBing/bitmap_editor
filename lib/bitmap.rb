@@ -29,12 +29,12 @@ class Bitmap
   end
 
   def fill_column(x, y1, y2, c)
-    raise 'Out of bounds' unless in_range?(x, y1) && in_range?(x, y2)
+    raise ArgumentError, 'Out of bounds' unless in_range?(x, y1) && in_range?(x, y2)
     y1.upto(y2) { |y| self[x, y] = c }
   end
 
   def fill_row(x1, x2, y, c)
-    raise 'Out of bounds' unless in_range?(y, x1) && in_range?(y, x2)
+    raise ArgumentError, 'Out of bounds' unless in_range?(y, x1) && in_range?(y, x2)
     x1.upto(x2) { |x| self[x, y] = c }
   end
 
@@ -55,8 +55,8 @@ class Bitmap
   attr_reader :array_class
 
   def self.validate(rows, cols)
-    raise "#{self} pixel width must be between #{MIN_SIZE} and #{MAX_SIZE}" unless valid?(rows)
-    raise "#{self} pixel height must be between #{MIN_SIZE} and #{MAX_SIZE}" unless valid?(cols)
+    raise ArgumentError, "#{self} pixel width must be between #{MIN_SIZE} and #{MAX_SIZE}" unless valid?(rows)
+    raise ArgumentError, "#{self} pixel height must be between #{MIN_SIZE} and #{MAX_SIZE}" unless valid?(cols)
   end
 
   def self.valid?(pixels)
@@ -70,5 +70,5 @@ class Bitmap
   end
 
   alias create clear
-  
+
 end
