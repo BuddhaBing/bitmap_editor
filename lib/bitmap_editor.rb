@@ -20,8 +20,10 @@ class BitmapEditor
     begin
       CLI.interpreter(command)
       params.empty? ? send(command) : send(command, params)
+      fail unless image_exists?
+      CLI.output("Success!\n\n")
     rescue
-      ErrorHandler.error('Unrecognised command :(')
+      ErrorHandler.error("Bad command :(\n\n")
     end
   end
 
@@ -46,18 +48,15 @@ class BitmapEditor
   end
 
   def show
-    fail unless image_exists?
-    CLI.output(image.show)
+    CLI.output(image.show + "\n\n")
   rescue
-    ErrorHandler.error('There is no image')
+    ErrorHandler.error('There is no image...')
   end
 
   def clear
-    fail unless image_exists?
     image.clear
-    CLI.output('Image cleared')
   rescue
-    ErrorHandler.error('There is no image')
+    ErrorHandler.error('There is no image...')
   end
 
   def image_exists?
