@@ -62,7 +62,7 @@
 #     @image.fill_row(x1, x2, y, c)
 #   end
 #
-#   def show_image
+#   def show
 #     puts @image.show
 #   end
 #
