@@ -8,6 +8,9 @@
 * [Rspec](http://rspec.info/)
 
 ## Jump To
+* [Commands](#commands)
+* [Example](#example)
+* [Expected Output](#expected-output)
 * [Installation](#install)
 * [Usage](#usage)
 * [Tests](#tests)
@@ -19,7 +22,7 @@ Program input
 The input consists of a file containing a sequence of commands, where a command is represented by a single capital letter at the beginning of the line. Parameters of the command are separated by white spaces and they follow the command character.
 Pixel co-ordinates are a pair of integers: a column number between 1 and 250, and a row number between 1 and 250. Bitmaps starts at coordinates 1,1. Colours are specified by capital letters.
 
-### Commands
+#### <a name="commands">Commands</a>
 There are 6 supported commands:
 
 ```
@@ -36,9 +39,12 @@ H X1 X2 Y C - Draw a horizontal segment of colour C in row Y between columns X1 
 S - Show the contents of the current image
 ```
 
-Example
-To run the application you must supply a command file like so bin/bitmap_editor examples/show.txt
-Input File:
+#### <a name="example">Example</a>
+To run the application you must supply a command file like so:
+
+`bin/bitmap_editor examples/show.txt`
+
+#### Input File
 
 ```
 I 5 6
@@ -48,7 +54,7 @@ H 3 5 2 Z
 S
 ```
 
-Expected Output:
+#### <a name="expected-output">Expected Output</a>
 
 ```
 OOOOO
