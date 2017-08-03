@@ -68,6 +68,19 @@ describe Parser do
 
     end
 
+    context 'params' do
+
+      it 'should return an array that contains the parameters, with numbers converted to an array index (-1)' do
+        line = "H 3 5 2 Z"
+        returned_params = Parser.parse(line)[1]
+        expect(returned_params.include?(2)).to be true
+        expect(returned_params.include?(4)).to be true
+        expect(returned_params.include?(1)).to be true
+        expect(returned_params.include?('Z')).to be true
+      end
+
+    end
+
   end
 
 end
